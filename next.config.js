@@ -23,6 +23,18 @@ const nextConfig = {
       // We're in the browser build, so we can safely exclude the sharp module
       config.externals.push('sharp')
     }
+
+    // Enable source maps in development
+    if (!isServer) {
+      config.devtool = 'source-map'
+    }
+
+    // WebAssembly support
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true
+    }
+
     // audio support
     config.module.rules.push({
       test: /\.(ogg|mp3|wav|mpe?g)$/i,
